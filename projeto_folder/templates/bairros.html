@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block body%}
+
+    <div class="container mb-5">
+        <div class="card mt-3 text-center" >
+          <div class="card-body">
+            <h5 class="card-title">Ranking do Preço da Gasolina</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Maceió - Alagoas</h6>
+            <p class="card-text">Aqui você encontra em tempo real o ranking dos 10 menores preços da gasolina na capital de Alagoas.</p>
+          </div>
+        </div>
+<!--        POSTO #1-->
+        <div class="row align-items-center h-100" >
+            <div class="col mx-auto">
+                <div class="card mt-3 text-center border-warning mb-3 justify-content-center">
+                  <h5 class="card-header">Posto #1 <span class="badge rounded-pill bg-warning text-dark">Melhor Preço!</span></h5>
+                  <div class="card-body">
+                    <h4 class="card-title">R$ {{ top10_postos[0]['preco'] }}</h4>
+                    <p class="card-text">Bairro: {{ top10_postos[0]['bairro'] }}</p>
+                    <a href="{{ top10_postos[0]['link'] }}" class="btn btn-primary">Google Maps</a>
+                      {% if top10_postos[0]['tel']: %}
+                        <a href="{{ top10_postos[0]['tel'] }}" class="btn btn-success btn-xlg">Telefone</a>
+                      {% else %}
+                        <button type="button" class="btn btn-success" disabled>Telefone</button>
+                      {% endif %}
+                  </div>
+                </div>
+            </div>
+        </div>
+        {% set i = 1 %}
+        {% for posto in top10_postos[1:] %}
+
+           <div class="col-12">
+                <div class="card mt-3 text-center" >
+                  <h5 class="card-header">Posto #{{ loop.index+1 }}</h5>
+                  <div class="card-body">
+                    <h4 class="card-title">R$ {{ posto['preco'] }}</h4>
+                    <p class="card-text">Bairro: {{ posto['bairro'] }}</p>
+                    <a href="{{ posto['link'] }}" class="btn btn-primary">Google Maps</a>
+                      {% if posto['tel']: %}
+                        <a href="{{ posto['tel'] }}" class="btn btn-success btn-xlg">Telefone</a>
+                      {% else %}
+                        <button type="button" class="btn btn-secondary" disabled>Telefone</button>
+                      {% endif %}
+                  </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

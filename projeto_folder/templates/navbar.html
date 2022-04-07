@@ -1,0 +1,45 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><i class="bi bi-lightning-charge-fill"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for('home') }}">Home</a>
+        </li>
+
+<!--        <li class="nav-item">-->
+<!--          <a class="nav-link" href="{{ url_for('bairros', bairro_nome='BOM PARTO') }}">Busca por Bairro</a>-->
+<!--        </li>-->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Ranking por Bairro
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+           {% for bairro in lista_bairros_mcz %}
+                    <li><a class="dropdown-item" href="{{ url_for('bairros', bairro_nome=bairro) }}">{{ bairro }}</a></li>
+           {% endfor %}
+          </ul>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{{ url_for('sobre') }}">Sobre</a>
+        </li>
+        </li>
+
+      </ul>
+
+      {% if current_user.is_authenticated %}
+      <form class="d-flex">
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-light ms-2" type="submit">Sair</a>
+      </form>
+      {% else %}
+      <form class="d-flex">
+        <a href="{{ url_for('criar_conta') }}" class="btn btn-outline-light" type="submit">Criar conta</a>
+        <a href="{{ url_for('login') }}" class="btn btn-light ms-2" type="submit">Login</a>
+      </form>
+      {% endif %}
+
+    </div>
+  </div>
+</nav>
